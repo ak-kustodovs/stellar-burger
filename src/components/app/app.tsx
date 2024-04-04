@@ -18,8 +18,7 @@ import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { getAllIngredients } from '../../services/slices/ingredientsSlice';
 import { checkUserAuth } from '../../services/slices/userSlice';
-import { OnlyAuth, OnlyUnAuth } from '../ProtectedRoute/protectedRoute';
-import { getAllOrders } from '../../services/slices/ordersSlice';
+import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
 
 const App = () => {
   const location = useLocation();
@@ -29,7 +28,6 @@ const App = () => {
   useEffect(() => {
     dispatch(getAllIngredients());
     dispatch(checkUserAuth());
-    dispatch(getAllOrders());
   }, []);
 
   const handleModalClose = () => {
@@ -85,7 +83,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal onClose={handleModalClose} title={''}>
+              <Modal onClose={handleModalClose} title={'Детали ингридиента'}>
                 <IngredientDetails />
               </Modal>
             }
