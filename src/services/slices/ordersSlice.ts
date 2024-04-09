@@ -1,4 +1,4 @@
-import { getFeedsApi, getOrdersApi } from '@api';
+import { getFeedsApi, getOrdersApi } from '../../utils/burger-api';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
@@ -9,7 +9,7 @@ type TOrdersState = {
   isLoading: boolean;
 };
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
   orders: [],
   total: 0,
   todayTotal: 0,
@@ -42,6 +42,7 @@ export const ordersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllOrders.fulfilled, (state, action) => {
+        console.log(action.payload.orders);
         state.orders = action.payload.orders;
         state.total = action.payload.total;
         state.todayTotal = action.payload.totalToday;
@@ -53,6 +54,9 @@ export const ordersSlice = createSlice({
       })
       .addCase(getUserOrders.pending, (state: TOrdersState) => {
         state.isLoading = true;
+      })
+      .addCase(getUserOrders.rejected, (state: TOrdersState) => {
+        state.isLoading = false;
       })
       .addCase(getUserOrders.fulfilled, (state, action) => {
         state.isLoading = false;
