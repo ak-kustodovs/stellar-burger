@@ -8,7 +8,7 @@ import {
   logoutApi,
   registerUserApi,
   updateUserApi
-} from '@api';
+} from '../../utils/burger-api';
 import { TUser } from '@utils-types';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
@@ -17,7 +17,7 @@ export type TAuthState = {
   isAuthChecked: boolean;
 };
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
   user: null,
   isAuthChecked: false
 };
@@ -113,6 +113,8 @@ export const logoutUser = createAsyncThunk('user/logout', async () => {
   deleteCookie('accessToken');
   localStorage.removeItem('refreshToken');
 });
+
+export const getUserFromApi = createAsyncThunk('user/get', getUserApi);
 
 export const { setAuthChecked, setUser } = userSlice.actions;
 export const { getAuthChecked, getUser } = userSlice.selectors;

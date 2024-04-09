@@ -1,6 +1,5 @@
-import { getIngredientsApi } from '@api';
+import { getIngredientsApi } from '../../utils/burger-api';
 import {
-  PayloadAction,
   createAsyncThunk,
   createSelector,
   createSlice
@@ -13,7 +12,7 @@ type TIngredientsState = {
   ingredients: TIngredient[];
 };
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   isLoading: false,
   ingredients: []
 };
@@ -48,6 +47,7 @@ export const ingredientsSlice = createSlice({
       })
       .addCase(getAllIngredients.fulfilled, (state, action) => {
         state.ingredients = action.payload;
+        console.log(state.ingredients);
         state.isLoading = false;
       })
       .addCase(getAllIngredients.rejected, (state) => {
